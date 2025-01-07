@@ -9,7 +9,7 @@ export type IGuardian = {
 
 export type IUserName = {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
 };
 export type ILocalGuardian = {
@@ -21,7 +21,7 @@ export type ILocalGuardian = {
 export type IStudent = {
   id: string;
   name: IUserName;
-  gender: 'male' | 'female';
+  gender: 'male' | 'female' | 'other';
   dateOfBirth?: string;
   email: string;
   contactNumber: string;
