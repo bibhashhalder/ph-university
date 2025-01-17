@@ -1,13 +1,17 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
 import { model, Schema } from 'mongoose';
 import {
   IGuardian,
   ILocalGuardian,
   IStudent,
-  IStudentMethod,
   IStudentModel,
+  // IStudentMethod,
+  // IStudentModel,
   IUserName,
 } from './student.interface';
 import validator from 'validator';
+import bcrypt from 'bcrypt';
+import config from '../..';
 const userNameSchema = new Schema<IUserName>({
   firstName: {
     type: String,
@@ -81,11 +85,16 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
     required: [true, 'Local guardian address must be needed'],
   },
 });
-const studentSchema = new Schema<IStudent, IStudentModel, IStudentMethod>({
+const studentSchema = new Schema<IStudent, IStudentModel>({
   id: {
     type: String,
     required: true,
     unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    maxlength: [15, 'Password can not be alowed in 15 charedter'],
   },
   name: {
     type: userNameSchema,
@@ -147,9 +156,39 @@ const studentSchema = new Schema<IStudent, IStudentModel, IStudentMethod>({
     enum: ['active', 'inactive'],
     default: 'active',
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+});
+// pre save/create  middleware
+
+studentSchema.pre('save', async function (next) {
+  const user = this;
+  await bcrypt.hash(user.password, Number(config.bcrypt_solt_round));
+  next();
 });
 
-studentSchema.methods.isUserExists = async function (id: string) {
+studentSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
+});
+
+studentSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+studentSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+// studentSchema.methods.isUserExists = async function (id: string) {
+//   const existingUser = await studentModel.findOne({ id });
+//   return existingUser;
+// };
+
+studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await studentModel.findOne({ id });
   return existingUser;
 };

@@ -22,6 +22,7 @@ export type ILocalGuardian = {
 };
 export type IStudent = {
   id: string;
+  password: string;
   name: IUserName;
   gender: 'male' | 'female' | 'other';
   dateOfBirth?: string;
@@ -35,14 +36,22 @@ export type IStudent = {
   localGuardian: ILocalGuardian;
   profileImage?: string;
   isActive: 'active' | 'inactive';
+  isDeleted: boolean;
 };
+// custom a instance method
 
-export type IStudentMethod = {
+// export type IStudentMethod = {
+//   isUserExists(id: string): Promise<IStudent | null>;
+// };
+
+// export type IStudentModel = Model<
+//   IStudent,
+//   Record<string, never>,
+//   IStudentMethod
+// >;
+
+// customt a static method
+
+export interface IStudentModel extends Model<IStudent> {
   isUserExists(id: string): Promise<IStudent | null>;
-};
-
-export type IStudentModel = Model<
-  IStudent,
-  Record<string, never>,
-  IStudentMethod
->;
+}
