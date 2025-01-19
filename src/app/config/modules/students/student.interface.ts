@@ -14,6 +14,7 @@ export type IUserName = {
   middleName?: string;
   lastName: string;
 };
+
 export type ILocalGuardian = {
   name: string;
   ocupation: string;
@@ -23,7 +24,7 @@ export type ILocalGuardian = {
 export type IStudent = {
   id: string;
   user: Types.ObjectId;
-  password: string;
+
   name: IUserName;
   gender: 'male' | 'female' | 'other';
   dateOfBirth?: string;

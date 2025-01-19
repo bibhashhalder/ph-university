@@ -25,7 +25,11 @@ const userSchema = new Schema<IUser>(
 );
 userSchema.pre('save', async function (next) {
   const user = this;
-  await bcrypt.hash(user.password, Number(config.bcrypt_solt_round));
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_solt_round),
+  );
+
   next();
 });
 

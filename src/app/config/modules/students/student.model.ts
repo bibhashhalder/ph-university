@@ -95,11 +95,7 @@ const studentSchema = new Schema<IStudent, IStudentModel>({
     unique: true,
     ref: 'User',
   },
-  password: {
-    type: String,
-    required: true,
-    maxlength: [15, 'Password can not be alowed in 15 charedter'],
-  },
+
   name: {
     type: userNameSchema,
     required: [true, 'User name must be needed'],
@@ -172,10 +168,6 @@ studentSchema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
 });
-// studentSchema.methods.isUserExists = async function (id: string) {
-//   const existingUser = await studentModel.findOne({ id });
-//   return existingUser;
-// };
 
 studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await studentModel.findOne({ id });
