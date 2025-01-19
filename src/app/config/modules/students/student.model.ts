@@ -10,8 +10,6 @@ import {
   IUserName,
 } from './student.interface';
 import validator from 'validator';
-import bcrypt from 'bcrypt';
-import config from '../..';
 const userNameSchema = new Schema<IUserName>({
   firstName: {
     type: String,
@@ -88,8 +86,14 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
 const studentSchema = new Schema<IStudent, IStudentModel>({
   id: {
     type: String,
-    required: true,
+    required: [true, 'Id must be required'],
     unique: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    required: [true, 'User id must be required'],
+    unique: true,
+    ref: 'User',
   },
   password: {
     type: String,
@@ -151,28 +155,13 @@ const studentSchema = new Schema<IStudent, IStudentModel>({
   profileImage: {
     type: String,
   },
-  isActive: {
-    type: String,
-    enum: ['active', 'inactive'],
-    default: 'active',
-  },
+
   isDeleted: {
     type: Boolean,
     default: false,
   },
 });
 // pre save/create  middleware
-
-studentSchema.pre('save', async function (next) {
-  const user = this;
-  await bcrypt.hash(user.password, Number(config.bcrypt_solt_round));
-  next();
-});
-
-studentSchema.post('save', function (doc, next) {
-  doc.password = '';
-  next();
-});
 
 studentSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });

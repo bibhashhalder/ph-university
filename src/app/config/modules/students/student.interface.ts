@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 export type IGuardian = {
   fatherName: string;
@@ -22,6 +22,7 @@ export type ILocalGuardian = {
 };
 export type IStudent = {
   id: string;
+  user: Types.ObjectId;
   password: string;
   name: IUserName;
   gender: 'male' | 'female' | 'other';
@@ -35,7 +36,6 @@ export type IStudent = {
   guardian: IGuardian;
   localGuardian: ILocalGuardian;
   profileImage?: string;
-  isActive: 'active' | 'inactive';
   isDeleted: boolean;
 };
 // custom a instance method
