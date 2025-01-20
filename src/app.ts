@@ -3,9 +3,10 @@
 /* eslint-disable prettier/prettier */
 import exress, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
-import { studentRoutes } from './app/config/modules/students/student.routes';
-import { userRoutes } from './app/config/modules/users/user.route';
+
 import { golobalError } from './app/middleWare/GolobalErrorHandeler';
+import notFound from './app/middleWare/notFound';
+import router from './app/routes';
 
 const app: Application = exress();
 
@@ -13,8 +14,7 @@ app.use(cors());
 
 app.use(exress.json());
 
-app.use('/api/v1/students', studentRoutes);
-app.use('/api/v1/users', userRoutes);
+app.use('/api/v1', router);
 
 const getAController = (req: Request, res: Response) => {
   res.send(' backend developer!!!!!!!');
@@ -22,4 +22,5 @@ const getAController = (req: Request, res: Response) => {
 app.get('/', getAController);
 // golobal error handeller
 app.use(golobalError);
+app.use(notFound);
 export default app;
