@@ -5,8 +5,6 @@ import {
   ILocalGuardian,
   IStudent,
   IStudentModel,
-  // IStudentMethod,
-  // IStudentModel,
   IUserName,
 } from './student.interface';
 import validator from 'validator';
