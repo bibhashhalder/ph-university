@@ -11,4 +11,10 @@ router.post(
   ),
   AcademicSemisterController.createAcademicSemister,
 );
+router.get('/', AcademicSemisterController.getAllAcademicSemister);
+router.get(
+  '/:semisterId',
+  AcademicSemisterController.getSingleAcademicSemister,
+);
+router.patch('/:semisterId', AcademicSemisterController.updateAcademicSemister);
 export const AcademicSemisterRoute = router;

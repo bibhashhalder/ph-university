@@ -37,6 +37,7 @@ export type IStudent = {
   guardian: IGuardian;
   localGuardian: ILocalGuardian;
   profileImage?: string;
+  admissionSemister: Types.ObjectId;
   isDeleted: boolean;
 };
 // custom a instance method

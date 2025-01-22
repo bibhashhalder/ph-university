@@ -16,7 +16,10 @@ export type IMonth =
 export type IAcademicSemister = {
   name: ISemisterName;
   code: ISemisterCode;
-  year: Date;
+  year: string;
   startMonth: IMonth;
   endMonth: IMonth;
+};
+export type IAcademicSemisterNameAndCodeMapper = {
+  [key: string]: string;
 };

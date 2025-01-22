@@ -15,7 +15,7 @@ const moduleRoutes = [
     route: userRoutes,
   },
   {
-    path: '/create-academic-semister',
+    path: '/semister',
     route: AcademicSemisterRoute,
   },
 ];

@@ -1,4 +1,5 @@
 import {
+  IAcademicSemisterNameAndCodeMapper,
   IMonth,
   ISemisterCode,
   ISemisterName,
@@ -20,3 +21,9 @@ export const monthSchema: IMonth[] = [
   'November',
   'December',
 ];
+export const academicSemisterNameAndCodeMapper: IAcademicSemisterNameAndCodeMapper =
+  {
+    Autum: '01',
+    Summar: '02',
+    Fall: '03',
+  };

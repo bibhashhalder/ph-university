@@ -19,7 +19,7 @@ const academicSemisterSchema = new Schema<IAcademicSemister>(
       required: true,
     },
     year: {
-      type: Date,
+      type: String,
       required: true,
     },
     startMonth: {
@@ -37,7 +37,16 @@ const academicSemisterSchema = new Schema<IAcademicSemister>(
     timestamps: true,
   },
 );
-
+academicSemisterSchema.pre('save', async function (next) {
+  const isSemisterExist = await AcademicSemisterModel.findOne({
+    name: this.name,
+    year: this.year,
+  });
+  if (isSemisterExist) {
+    throw new Error('Semister is alrady exist!');
+  }
+  next();
+});
 export const AcademicSemisterModel = model<IAcademicSemister>(
   'AcademicSemister',
   academicSemisterSchema,

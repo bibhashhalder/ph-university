@@ -40,6 +40,7 @@ const StudentSchema = z.object({
       guardian: GuardianSchema,
       localGuardian: LocalGuardianSchema,
       profileImage: z.string().optional(),
+      admissionSemister: z.string(),
       isActive: z.enum(['active', 'inactive']),
       isDeleted: z.boolean().default(false),
     }),

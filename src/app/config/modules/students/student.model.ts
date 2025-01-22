@@ -150,6 +150,11 @@ const studentSchema = new Schema<IStudent, IStudentModel>({
     type: String,
   },
 
+  admissionSemister: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicSemister',
+  },
+
   isDeleted: {
     type: Boolean,
     default: false,
