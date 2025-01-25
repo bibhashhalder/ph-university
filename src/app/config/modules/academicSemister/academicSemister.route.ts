@@ -7,7 +7,7 @@ const router = Router();
 router.post(
   '/create-academic-semister',
   validateRequest(
-    AcademicSemisterValidations.AcademicSemisterValidaqtionSchema,
+    AcademicSemisterValidations.createAcademicSemisterValidaqtionSchema,
   ),
   AcademicSemisterController.createAcademicSemister,
 );
@@ -16,5 +16,11 @@ router.get(
   '/:semisterId',
   AcademicSemisterController.getSingleAcademicSemister,
 );
-router.patch('/:semisterId', AcademicSemisterController.updateAcademicSemister);
+router.patch(
+  '/:semisterId',
+  validateRequest(
+    AcademicSemisterValidations.updateAcademicSemisterValidaqtionSchema,
+  ),
+  AcademicSemisterController.updateAcademicSemister,
+);
 export const AcademicSemisterRoute = router;

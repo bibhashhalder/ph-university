@@ -1,19 +1,21 @@
 import config from '../..';
-// import { IAcademicSemister } from '../academicSemister/academicSemister.interface';
+import { AcademicSemisterModel } from '../academicSemister/academicSemister.model';
 import { IStudent } from '../students/student.interface';
 import { studentModel } from '../students/student.model';
 import { IUser } from './user.interface';
 
 import { userModel } from './user.model';
+import { generateStudentId } from './user.utils';
 
 const createStudentFromDB = async (password: string, studentData: IStudent) => {
   const userData: Partial<IUser> = {};
   userData.password = password || (config.default_password as string);
   userData.role = 'student';
-  // const generateStudentId =(payload:IAcademicSemister)=>{
 
-  // }
-  userData.id = '20300006';
+  const admissionSemister = await AcademicSemisterModel.findById(
+    studentData.admissionSemister,
+  );
+  userData.id = await generateStudentId(admissionSemister);
   const newUser = await userModel.create(userData);
   if (Object.keys(newUser).length) {
     studentData.id = newUser.id;

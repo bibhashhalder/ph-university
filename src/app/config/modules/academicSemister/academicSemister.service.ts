@@ -19,12 +19,23 @@ const getSingleAcademicSemisterFromDB = async (_id: string) => {
   return result;
 };
 const updateAcademicSemisterFromDB = async (
-  _id: string,
+  id: string,
   payload: Partial<IAcademicSemister>,
 ) => {
-  const result = await AcademicSemisterModel.updateOne({ _id: _id }, payload, {
-    new: true,
-  });
+  if (
+    payload.name &&
+    payload.code &&
+    academicSemisterNameAndCodeMapper[payload.name] !== payload.code
+  ) {
+    throw new Error('Invalid semister code!');
+  }
+  const result = await AcademicSemisterModel.findOneAndUpdate(
+    { _id: id },
+    payload,
+    {
+      new: true,
+    },
+  );
   return result;
 };
 export const AcademicSemisterService = {

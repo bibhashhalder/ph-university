@@ -38,8 +38,10 @@ const getSingleAcademicSemister = catchAsync(async (req, res) => {
 });
 const updateAcademicSemister = catchAsync(async (req, res) => {
   const { semisterId } = req.params;
-  const result =
-    await AcademicSemisterService.updateAcademicSemisterFromDB(semisterId);
+  const result = await AcademicSemisterService.updateAcademicSemisterFromDB(
+    semisterId,
+    req.body,
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
