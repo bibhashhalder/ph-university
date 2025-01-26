@@ -42,6 +42,7 @@ const StudentSchema = z.object({
       profileImage: z.string().optional(),
       admissionSemister: z.string(),
       isDeleted: z.boolean().default(false),
+      academicDepartment: z.string(),
     }),
   }),
 });

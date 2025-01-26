@@ -6,13 +6,16 @@ import { academicFacultyValidation } from './academicFaculty.validation';
 const router = Router();
 router.post(
   '/create-academic-faculty',
+  validateRequest(academicFacultyValidation.academicFacultyValidationSchema),
   AcademicFacultyController.createAcademicFaculty,
 );
 router.get('/', AcademicFacultyController.getAllAcademicFaculty);
 router.get('/:facultyId', AcademicFacultyController.getSingleAcademicFaculty);
 router.patch(
-  '/:facultyI',
-  validateRequest(academicFacultyValidation.academicFacultyValidationSchema),
+  '/:facultyId',
+  validateRequest(
+    academicFacultyValidation.updateAcademicFacultyValidationSchema,
+  ),
   AcademicFacultyController.updateAcademicFaculty,
 );
 export const AcademicFacultyRoute = router;

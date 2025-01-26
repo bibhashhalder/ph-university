@@ -24,6 +24,17 @@ const getAllAcademicFaculty = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getSingleAcademicFaculty = catchAsync(async (req, res) => {
+  const { facultyId } = req.params;
+  const result =
+    await AcademicFacultyService.getSingleAcademicFacultyIntoDB(facultyId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Single Academic faculty is retrived successfully',
+    data: result,
+  });
+});
 const updateAcademicFaculty = catchAsync(async (req, res) => {
   const { facultyId } = req.params;
   const result = await AcademicFacultyService.updateAcademicFacultyIntoDB(
@@ -34,17 +45,6 @@ const updateAcademicFaculty = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic faculty is updated successfully',
-    data: result,
-  });
-});
-const getSingleAcademicFaculty = catchAsync(async (req, res) => {
-  const { facultyId } = req.params;
-  const result =
-    await AcademicFacultyService.getSingleAcademicFacultyIntoDB(facultyId);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Single Academic faculty is retrived successfully',
     data: result,
   });
 });

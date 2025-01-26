@@ -39,6 +39,7 @@ export type IStudent = {
   profileImage?: string;
   admissionSemister: Types.ObjectId;
   isDeleted: boolean;
+  academicDepartment: Types.ObjectId;
 };
 // custom a instance method
 

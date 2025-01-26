@@ -159,6 +159,10 @@ const studentSchema = new Schema<IStudent, IStudentModel>({
     type: Boolean,
     default: false,
   },
+  academicDepartment: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicDepartment',
+  },
 });
 // pre save/create  middleware
 

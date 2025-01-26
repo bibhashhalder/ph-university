@@ -14,11 +14,11 @@ const getSingleAcademicFacultyIntoDB = async (_id: string) => {
   return result;
 };
 const updateAcademicFacultyIntoDB = async (
-  _id: string,
+  id: string,
   payload: Partial<IAcademicFaculty>,
 ) => {
-  const result = await academicFacultyModel.findByIdAndUpdate(
-    { _id: _id },
+  const result = await academicFacultyModel.findOneAndUpdate(
+    { _id: id },
     payload,
     {
       new: true,
