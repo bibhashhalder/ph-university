@@ -43,7 +43,7 @@ academicSemisterSchema.pre('save', async function (next) {
     year: this.year,
   });
   if (isSemisterExist) {
-    throw new Error('Semister is alrady exist!');
+    throw new Error('Semister is already exist!');
   }
   next();
 });

@@ -1,11 +1,27 @@
 import { studentModel } from './student.model';
 const getAllStudentFromDB = async () => {
-  const result = await studentModel.find();
+  const result = await studentModel
+    .find()
+    .populate('admissionSemister')
+    .populate({
+      path: 'academicDepartment',
+      populate: {
+        path: 'academicFaculty',
+      },
+    });
   return result;
 };
 const getSingleStudentFromDB = async (id: string) => {
   // const result = await studentModel.findOne({ _id: _id });
-  const result = await studentModel.aggregate([{ $match: { id: id } }]);
+  const result = await studentModel
+    .findById(id)
+    .populate('admissionSemister')
+    .populate({
+      path: 'academicDepartment',
+      populate: {
+        path: 'academicFaculty',
+      },
+    });
   return result;
 };
 const deleteStudentFromDB = async (id: string) => {
