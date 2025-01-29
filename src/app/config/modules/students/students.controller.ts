@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { studentService } from './students.service';
 import sendResponse from '../../../utils/sendResponse';
 import httpStatus from 'http-status';
@@ -22,6 +21,16 @@ const getSingleStudent = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const updateStudent = catchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const result = await studentService.updateStudentFromDB(studentId, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student updated successfully',
+    data: result,
+  });
+});
 const deleteStudent = catchAsync(async (req, res) => {
   const { studentId } = req.params;
   const result = await studentService.deleteStudentFromDB(studentId);
@@ -35,5 +44,6 @@ const deleteStudent = catchAsync(async (req, res) => {
 export const studentController = {
   getAllStudent,
   getSingleStudent,
+  updateStudent,
   deleteStudent,
 };
