@@ -19,18 +19,18 @@ const academicDepartmentSchema = new Schema<IAcademicDepartment>(
   },
 );
 
-academicDepartmentSchema.pre('save', async function (next) {
-  const isDepartmentExist = await AcademicDepartmentModel.findOne({
-    name: this.name,
-  });
-  if (isDepartmentExist) {
-    throw new AppEorror(
-      httpStatus.NOT_FOUND,
-      'Academic department all ready exist',
-    );
-  }
-  next();
-});
+// academicDepartmentSchema.pre('save', async function (next) {
+//   const isDepartmentExist = await AcademicDepartmentModel.findOne({
+//     name: this.name,
+//   });
+//   if (isDepartmentExist) {
+//     throw new AppEorror(
+//       httpStatus.NOT_FOUND,
+//       'Academic department all ready exist',
+//     );
+//   }
+//   next();
+// });
 academicDepartmentSchema.pre('findOneAndUpdate', async function (next) {
   const query = this.getQuery();
   const isDepartmentExist = await AcademicDepartmentModel.findOne(query);

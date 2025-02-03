@@ -16,10 +16,12 @@ app.use(exress.json());
 
 app.use('/api/v1', router);
 
-const getAController = (req: Request, res: Response) => {
-  res.send(' backend developer!!!!!!!');
+const test = (req: Request, res: Response) => {
+  Promise.reject();
+  // const a = 10
+  // res.send(a);
 };
-app.get('/', getAController);
+app.get('/', test);
 // golobal error handeller
 app.use(golobalError);
 app.use(notFound);
