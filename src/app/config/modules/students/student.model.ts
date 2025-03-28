@@ -96,7 +96,7 @@ const studentSchema = new Schema<IStudent, IStudentModel>({
 
   name: {
     type: userNameSchema,
-    required: [true, 'User name must be needed'],
+    required: [true, 'Student name must be needed'],
   },
   gender: {
     type: String,
